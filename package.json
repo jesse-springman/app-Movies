@@ -1,0 +1,16 @@
+{
+  "name": "app-movies",
+  "version": "1.0.0",
+  "main": "index.js",
+  "scripts": {
+    "dev" : "npx tsc watch src/server.ts"
+  },
+  "keywords": [],
+  "author": "",
+  "license": "ISC",
+  "description": "",
+  "devDependencies": {
+    "tsx": "^4.17.0",
+    "typescript": "^5.5.4"
+  }
+}
