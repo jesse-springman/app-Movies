@@ -62,7 +62,65 @@ catch(error){
 });
 
 
+
+app.put('/movies/:id', async (req,res)=>{
+
+  const id = Number(req.params.id)
+
+  const updateData = await prisma.movie.update({
+
+    where:{
+      id
+    },
+
+    data:{
+      realese_data: new Date(req.body.realese_data)
+    }
+
+  });
+
+  res.status(200).send();
+  
+});
+
+
+
+app.delete('/movies/:id', async (req, res)=>{
+
+  const id = Number(req.params.id)
+
+   try {
+
+    const moviee =  await  prisma.movie.findUnique({
+        where:{ id },
+      })
+
+      if(!moviee){
+        return  res.status(404).send({message: "filme não encontrado"});
+     }
+
+
+     await prisma.movie.delete({
+      where:{
+        id
+      }
+     });
+
+     res.send({message: "Filme deletado com sucesso"});
+
+
+   }
+   
+   catch (error) {
+
+    return res.status(404).send({message: "Erro ao deletar o filme"})
+
+   }
+
+})
+
+
 app.listen(port, () => {
   console.log(`Servidor em execução ${port}`);
 
-});
+})
