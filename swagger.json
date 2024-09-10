@@ -26,7 +26,42 @@
                     }
                 }
             }
+        },
+
+
+        
+        "/movies/{id}": {
+            "put" : {
+                "tags" :["Atualização dos filmes"],
+                "sumary": "atualizar um filme",
+                "parameters" : [
+                    {
+                        "name" : "id",
+                        "in" : "path",
+                        "required" : true,
+                        "description" : "ID do filme",
+                        "schema" : {
+                            "type" : "integer"
+                        }
+                        
+                    }
+                ],
+                "requestBody": {
+                    "required" : true,
+                    "content" : {
+                        "application/json" : {
+                            "schema":{
+                                "$ref" : "#/components/schemas/MovieInput"
+                            }
+                        }
+                    }
+                    
+
+                }
+            }
         }
+
+
     },
     "components": {
         "schemas": {
@@ -85,7 +120,55 @@
                         "description": "Número de oscar que o filme ganhou"
                     }
                 }
+            },
+
+
+
+            
+            "MovieInput" : {
+                "type" : "object",
+                "required" : [
+
+                    "title" ,
+                    "language_id" ,
+                    "realese_data",
+                    "oscar_count" ,
+                    "genre_id"
+                ],
+
+                "properties" : {
+                    "title": {
+                       "type" : "string",
+                       "description" : "Titulo do filme"
+                    },
+                    
+                    "language_id" :{
+                        "type" : "integer",
+                        "description" : "ID do idioma filme"
+                    },
+
+                    "realese_data" : {
+                        "type": "string",
+                        "format" : "date",
+                        "description" : "Data de estreia do filme"
+                    },
+
+                    "oscar_count" :{
+                        "type": "integer",
+                        "description" : "Numero de oscar que o filme recebeu"
+                    },
+
+                    " genre_id " :{
+                        "type": "integer",
+                        "description" : "ID do gênero do filme"
+                    }
+                    
+                }
             }
+
+
         }
+       
+
     }
 }
