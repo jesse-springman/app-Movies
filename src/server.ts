@@ -69,21 +69,40 @@ app.post('/movies', async (req, res) => {
 
 app.put('/movies/:id', async (req, res) => {
 
-  const id = Number(req.params.id)
 
-  const updateData = await prisma.movie.update({
+      try {
 
-    where: {
-      id
-    },
+        const id = Number(req.params.id)
+        
+        const updateData = await prisma.movie.update({
 
-    data: {
-      realese_data: new Date(req.body.realese_data)
-    }
+       
 
-  });
+          where: {
+            id
+          },
+      
 
-  res.status(200).send();
+        data: {
+          realese_data: new Date(req.body.realese_data)
+        }
+
+      });
+
+      if(!updateData){
+        res.status(404).send({message: "Erro ao encontrar o filme"})
+      }
+
+      res.status(200).send({message: "Filme atualizado com sucesso"});
+
+
+
+  }
+   catch (error) {
+    res.status(500).send({message: "Erro ao atualizar filme"})      
+  }
+
+
 
 });
 
@@ -117,7 +136,7 @@ app.delete('/movies/:id', async (req, res) => {
 
   catch (error) {
 
-    return res.status(404).send({ message: "Erro ao deletar o filme" })
+    return res.status(500).send({ message: "Erro ao deletar o filme" })
 
   }
 

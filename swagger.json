@@ -46,6 +46,22 @@
                         
                     }
                 ],
+
+                "responses" :{
+                    "200" : {
+                        "description": "Filme atualizado com sucesso"
+                    },
+
+                    "404": {
+                        "description" : "Erro ao encontrar o filme"
+                    },
+
+                    "500": {
+                        "description": "Erro ao atualizar filme"
+                    }
+                },
+
+
                 "requestBody": {
                     "required" : true,
                     "content" : {
@@ -57,6 +73,37 @@
                     }
                     
 
+                }
+            },
+
+
+            "delete" :{
+                "tags": ["Deletar filmes"],
+                "sumary": "Apagar um filme",
+                "parameters":[
+                    {
+                        "name" : "id",
+                        "in" : "path",
+                        "required" : true,
+                        "description" : "ID do filme que deseja apagar",
+                        "schema":{
+                            "type": "integer"
+                        }
+                    }
+                ],
+
+                "responses":{
+                    "200" :{
+                        "description": "Filme deletado com sucesso"
+                    },
+
+                    "404" : {
+                        "description" : "Filme não encontrado"
+                    },
+
+                    "500" : {
+                        "description" : "Erro ao deletar o filme"
+                    }
                 }
             }
         }
