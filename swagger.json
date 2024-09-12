@@ -7,8 +7,10 @@
     },
     "paths": {
         "/movies": {
-               "get": {
-                "tags" : ["Movies"],
+            "get": {
+                "tags": [
+                    "Movies"
+                ],
                 "sumary": "Obter todos os filmes",
                 "responses": {
                     "200": {
@@ -27,88 +29,111 @@
                 }
             }
         },
-
-
-        
         "/movies/{id}": {
-            "put" : {
-                "tags" :["Atualização dos filmes"],
-                "sumary": "atualizar um filme",
-                "parameters" : [
-                    {
-                        "name" : "id",
-                        "in" : "path",
-                        "required" : true,
-                        "description" : "ID do filme",
-                        "schema" : {
-                            "type" : "integer"
-                        }
-                        
-                    }
+            "put": {
+                "tags": [
+                    "Atualização dos filmes"
                 ],
-
-                "responses" :{
-                    "200" : {
-                        "description": "Filme atualizado com sucesso"
-                    },
-
-                    "404": {
-                        "description" : "Erro ao encontrar o filme"
-                    },
-
-                    "500": {
-                        "description": "Erro ao atualizar filme"
-                    }
-                },
-
-
-                "requestBody": {
-                    "required" : true,
-                    "content" : {
-                        "application/json" : {
-                            "schema":{
-                                "$ref" : "#/components/schemas/MovieInput"
-                            }
-                        }
-                    }
-                    
-
-                }
-            },
-
-
-            "delete" :{
-                "tags": ["Deletar filmes"],
-                "sumary": "Apagar um filme",
-                "parameters":[
+                "sumary": "atualizar um filme",
+                "parameters": [
                     {
-                        "name" : "id",
-                        "in" : "path",
-                        "required" : true,
-                        "description" : "ID do filme que deseja apagar",
-                        "schema":{
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "ID do filme",
+                        "schema": {
                             "type": "integer"
                         }
                     }
                 ],
-
-                "responses":{
-                    "200" :{
+                "responses": {
+                    "200": {
+                        "description": "Filme atualizado com sucesso"
+                    },
+                    "404": {
+                        "description": "Erro ao encontrar o filme"
+                    },
+                    "500": {
+                        "description": "Erro ao atualizar filme"
+                    }
+                },
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/MovieInput"
+                            }
+                        }
+                    }
+                }
+            },
+            "delete": {
+                "tags": [
+                    "Deletar filmes"
+                ],
+                "sumary": "Apagar um filme",
+                "parameters": [
+                    {
+                        "name": "id",
+                        "in": "path",
+                        "required": true,
+                        "description": "ID do filme que deseja apagar",
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
                         "description": "Filme deletado com sucesso"
                     },
-
-                    "404" : {
-                        "description" : "Filme não encontrado"
+                    "404": {
+                        "description": "Filme não encontrado"
                     },
-
-                    "500" : {
-                        "description" : "Erro ao deletar o filme"
+                    "500": {
+                        "description": "Erro ao deletar o filme"
+                    }
+                }
+            }
+        },
+        "/movies/{genreName}": {
+            "get": {
+                "tags": [
+                    "Movies"
+                ],
+                "sumary": " Lista de filmes filtrada pelo gênero",
+                "parameters": [
+                    {
+                        "name": "genreName",
+                        "in": "path",
+                        "required": true,
+                        "description": "Nome do gênero do  filme que você deseja",
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "content": {
+                            "application/json": {
+                                "schema": {
+                                    "types": "array",
+                                    "items": {
+                                        "$ref": "#/components/schemas/Movie"
+                                    }
+                                }
+                            }
+                        },
+                        "description": "Nova lista de filmes somente com o gênero buscado "
+                    },
+                    "500": {
+                        "description": "Erro ao filtrar gênero"
                     }
                 }
             }
         }
-
-
     },
     "components": {
         "schemas": {
@@ -168,54 +193,39 @@
                     }
                 }
             },
-
-
-
-            
-            "MovieInput" : {
-                "type" : "object",
-                "required" : [
-
-                    "title" ,
-                    "language_id" ,
+            "MovieInput": {
+                "type": "object",
+                "required": [
+                    "title",
+                    "language_id",
                     "realese_data",
-                    "oscar_count" ,
+                    "oscar_count",
                     "genre_id"
                 ],
-
-                "properties" : {
+                "properties": {
                     "title": {
-                       "type" : "string",
-                       "description" : "Titulo do filme"
-                    },
-                    
-                    "language_id" :{
-                        "type" : "integer",
-                        "description" : "ID do idioma filme"
-                    },
-
-                    "realese_data" : {
                         "type": "string",
-                        "format" : "date",
-                        "description" : "Data de estreia do filme"
+                        "description": "Titulo do filme"
                     },
-
-                    "oscar_count" :{
+                    "language_id": {
                         "type": "integer",
-                        "description" : "Numero de oscar que o filme recebeu"
+                        "description": "ID do idioma filme"
                     },
-
-                    " genre_id " :{
+                    "realese_data": {
+                        "type": "string",
+                        "format": "date",
+                        "description": "Data de estreia do filme"
+                    },
+                    "oscar_count": {
                         "type": "integer",
-                        "description" : "ID do gênero do filme"
+                        "description": "Numero de oscar que o filme recebeu"
+                    },
+                    " genre_id ": {
+                        "type": "integer",
+                        "description": "ID do gênero do filme"
                     }
-                    
                 }
             }
-
-
         }
-       
-
     }
 }

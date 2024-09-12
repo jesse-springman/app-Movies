@@ -171,7 +171,7 @@ res.status(200).send(moviesFilter);
   
   catch (error) {
     
-   return res.status(500).send({message: 'Erro ao filtrar genero'})
+   return res.status(500).send({message: 'Erro ao filtrar gênero'})
   }
 
 
