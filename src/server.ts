@@ -12,6 +12,8 @@ app.use('/docs',swaggerUi.serve, swaggerUi.setup(swaggerDoc));
 
 app.get('/movies', async (req, res) => {
   const movies = await prisma.movie.findMany({
+   
+    
 
     orderBy: {
       title: 'asc'
@@ -26,7 +28,9 @@ app.get('/movies', async (req, res) => {
     },
   });
 
-  res.json(movies);''
+  console.log(movies);
+
+  res.json(movies);
 });
 
 app.post('/movies', async (req, res) => {
@@ -56,7 +60,7 @@ app.post('/movies', async (req, res) => {
       }
     });
 
-    res.status(201).send();
+    res.status(201).send({message:"Filme adicionado com sucesso"});
   }
 
   catch (error) {
@@ -179,6 +183,6 @@ res.status(200).send(moviesFilter);
 
 
 app.listen(port, () => {
-  console.log(`Servidor em execução ${port}`);
+  console.log(`Servidor em execução na porta ${port}`);
 
 })

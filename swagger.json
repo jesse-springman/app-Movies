@@ -9,7 +9,7 @@
         "/movies": {
             "get": {
                 "tags": [
-                    "Movies"
+                    " Todos os Filmes"
                 ],
                 "sumary": "Obter todos os filmes",
                 "responses": {
@@ -23,6 +23,33 @@
                                         "$ref": "#/components/schemas/Movie"
                                     }
                                 }
+                            }
+                        }
+                    }
+                }
+            },
+            "post": {
+                "tags": [
+                    "Adicionar um novo filme"
+                ],
+                "sumary": "Adicionar um novo filme no catalogo",
+                "responses": {
+                    "201": {
+                        "description": "Filme adicionado com sucesso"
+                    },
+                    "409": {
+                        "description": "Esse filme já esta cadastrado"
+                    },
+                    "500": {
+                        "description": "Falha ao cadastrar um filme"
+                    }
+                },
+                "requestBody": {
+                    "required": true,
+                    "content": {
+                        "application/json": {
+                            "schema": {
+                                "$ref": "#/components/schemas/MovieInput"
                             }
                         }
                     }
@@ -100,9 +127,9 @@
         "/movies/{genreName}": {
             "get": {
                 "tags": [
-                    "Movies"
+                    "Lista de filmes filtrado pelo gênero"
                 ],
-                "sumary": " Lista de filmes filtrada pelo gênero",
+                "sumary": "Lista de filmes filtrado pelo gênero",
                 "parameters": [
                     {
                         "name": "genreName",
